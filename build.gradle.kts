@@ -20,6 +20,9 @@ dependencies {
     // (in a separate module for demo project and in testMain).
     // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
+    implementation("moe.tlaster:precompose:1.5.10")
+    implementation("moe.tlaster:precompose-viewmodel:1.5.10")
+
 }
 
 compose.desktop {

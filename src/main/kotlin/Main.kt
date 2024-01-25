@@ -1,31 +1,33 @@
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPosition
+import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import moe.tlaster.precompose.PreComposeApp
+import page.HomePage
+
 
 @Composable
 @Preview
 fun App() {
-    var text by remember { mutableStateOf("Hello, World!") }
-
-    MaterialTheme {
-        Button(onClick = {
-            text = "Hello, Desktop!"
-        }) {
-            Text(text)
+    PreComposeApp {
+        MaterialTheme {
+            HomePage()
         }
     }
 }
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(
+        onCloseRequest = ::exitApplication, title = "DiskSpace", state = WindowState(
+            position = WindowPosition.Aligned(
+                Alignment.Center
+            )
+        )
+    ) {
         App()
     }
 }
