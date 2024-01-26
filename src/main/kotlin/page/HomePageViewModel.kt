@@ -1,13 +1,14 @@
 package page
 
-import entity.DiskInfoEntity
+import common.toProjectFile
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.viewmodel.ViewModel
 import moe.tlaster.precompose.viewmodel.viewModelScope
-import readableFileSize
+//import widget.filetree.FileTree
 import java.io.File
+import java.nio.file.Files
 
 /**
  * @Author : lcc
@@ -15,34 +16,49 @@ import java.io.File
  * @Description:
  */
 class HomePageViewModel : ViewModel() {
-    val rootDiskSize = MutableStateFlow(mutableListOf(DiskInfoEntity()))
-    val childFileSize = MutableStateFlow(mutableListOf(""))
-
-    init {
-        checkDisk()
-    }
-
-    fun checkDisk() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val rootDiskSize = mutableListOf<DiskInfoEntity>()
-            val childSize = mutableListOf<String>()
-            File.listRoots().forEach {
-                it.listFiles()?.forEach {
-                    childSize.add("磁盘路径:${it.path} --------- 磁盘总空间大小:${it.freeSpace} ---------- 剩余磁盘空间大小:${it.freeSpace.readableFileSize()}")
-                }
-                rootDiskSize.add(
-                    DiskInfoEntity(
-                        it.path,
-                        it.totalSpace.readableFileSize(),
-                        (it.totalSpace - it.freeSpace).readableFileSize(),
-                        it.freeSpace.readableFileSize(),
-                        it.canRead(), it.canWrite()
-                    )
-                )
-            }
-            childFileSize.emit(childSize)
-            this@HomePageViewModel.rootDiskSize.emit(rootDiskSize)
-        }
-    }
-
+//    val rootDiskSize = MutableStateFlow<List<String>>(emptyList())
+//    val fileTree = MutableStateFlow(FileTree(File("").toProjectFile()))
+//
+//    init {
+//        checkDisk()
+//    }
+//
+//    fun checkDisk() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val rootDiskSize = File.listRoots()?.map { it.absolutePath } ?: emptyList()
+//            val fileTree = FileTree(File(rootDiskSize.firstOrNull() ?: "").toProjectFile())
+//            this@HomePageViewModel.fileTree.emit(fileTree)
+//            this@HomePageViewModel.rootDiskSize.emit(rootDiskSize)
+//        }
+//    }
+//
+//
+//    private fun listChildFile(file: File, childFileList: MutableList<DiskInfoEntity>) {
+//        if (file.isDirectory) {
+//            childFileList.add(
+//                DiskInfoEntity(
+//                    file.path,
+//                    file.totalSpace.readableFileSize(),
+//                    (file.totalSpace - file.freeSpace).readableFileSize(),
+//                    file.freeSpace.readableFileSize(),
+//                    file.canRead(), file.canWrite(),
+//                    type = FileType.FILE_FOLDER
+//                )
+//            )
+//            file.listFiles()?.forEach {
+//                listChildFile(it, mutableListOf())
+//            }
+//        } else if (file.isFile) {
+//            childFileList.add(
+//                DiskInfoEntity(
+//                    file.path,
+//                    file.totalSpace.readableFileSize(),
+//                    (file.totalSpace - file.freeSpace).readableFileSize(),
+//                    file.freeSpace.readableFileSize(),
+//                    file.canRead(), file.canWrite(),
+//                    type = FileType.FILE
+//                )
+//            )
+//        }
+//    }
 }

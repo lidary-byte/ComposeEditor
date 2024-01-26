@@ -10,4 +10,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "diskspace"
+rootProject.name = "ComposeEditor"

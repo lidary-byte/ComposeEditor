@@ -21,7 +21,7 @@ fun Long.readableFileSize(): String {
     val units = arrayOf("B", "kB", "MB", "GB", "TB")
     val digitGroups = (log10(this.toDouble()) / log10(1024.0)).toInt()
 
-    val decimalFormat = DecimalFormat("#,##0.0")
-    decimalFormat.setRoundingMode(RoundingMode.DOWN)
+    val decimalFormat = DecimalFormat("#,##0.00")
+//    decimalFormat.setRoundingMode(RoundingMode.DOWN)
     return decimalFormat.format(this / 1024.0.pow(digitGroups.toDouble())) + units[digitGroups]
 }

@@ -22,7 +22,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation("moe.tlaster:precompose:1.5.10")
     implementation("moe.tlaster:precompose-viewmodel:1.5.10")
-
+    implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.0")
 }
 
 compose.desktop {
@@ -31,7 +31,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "diskspace"
+            packageName = "editor"
             packageVersion = "1.0.0"
         }
     }
