@@ -8,12 +8,22 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
+import org.jetbrains.skiko.SystemTheme
 
 /**
  * @Author : lcc
  * @CreateData : 2024/1/26
  * @Description:
  */
+enum class AppTheme1 {
+    Dark, Light, System;
+
+    fun isDark() = (if (this == System) fromSystemTheme(SystemTheme.LIGHT) else this) == Dark
+
+    companion object {
+        fun fromSystemTheme(systemTheme: SystemTheme) = if (systemTheme == SystemTheme.LIGHT) Light else Dark
+    }
+}
 
 @Immutable
 data class Theme(
