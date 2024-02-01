@@ -46,15 +46,16 @@ dependencies {
 //    implementation("io.noties.markwon:inline-parser:4.6.2")
 //    implementation("io.noties.markwon:linkify:4.6.2")
 //    implementation("io.noties.markwon:simple-ext:4.6.2")
+    // 文件内容高亮 https://github.com/bobbylight/RSyntaxTextArea
+    implementation("com.fifesoft:rsyntaxtextarea:3.3.4")
 }
 
 compose.desktop {
     application {
         mainClass = "MainKt"
-
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "editor"
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb, TargetFormat.Exe, TargetFormat.Pkg)
+            packageName = "ComposeEditor"
             packageVersion = "1.0.0"
         }
     }
