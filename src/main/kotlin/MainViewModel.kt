@@ -1,8 +1,10 @@
+import androidx.compose.foundation.isSystemInDarkTheme
 import common.IntUiThemes
 import entity.FileEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import moe.tlaster.precompose.viewmodel.ViewModel
+import org.fife.ui.rsyntaxtextarea.Theme
 import java.io.File
 
 /**
@@ -18,14 +20,23 @@ class MainViewModel : ViewModel() {
 
 
     private val _isExpanded = MutableStateFlow(false)
-    val isExpanded
-        get() = _isExpanded.asStateFlow()
 
 
     private val _chooseFile = MutableStateFlow(FileEntity())
     val chooseFile
         get() = _chooseFile.asStateFlow()
 
+
+    private val _codeTheme = MutableStateFlow<Theme?>(
+        Theme.load(
+            javaClass.getResourceAsStream(
+                "/org/fife/ui/rsyntaxtextarea/themes/idea.xml"
+            )
+        )
+    )
+
+    val codeTheme
+        get() = _codeTheme.asStateFlow()
 
     fun addFile(file: List<File>) {
 
@@ -50,13 +61,23 @@ class MainViewModel : ViewModel() {
     }
 
 
-    fun changeExpanded(isExpanded: Boolean) {
-        this._isExpanded.tryEmit(isExpanded)
-    }
-
-
+    var fontT: Theme? = null
     fun themeMode(theme: IntUiThemes) {
         this._theme.tryEmit(theme)
+        _codeTheme.value = when (theme) {
+            IntUiThemes.Light, IntUiThemes.LightWithLightHeader -> Theme.load(
+                javaClass.getResourceAsStream(
+                    "/org/fife/ui/rsyntaxtextarea/themes/idea.xml"
+                )
+            )
+
+            IntUiThemes.Dark -> Theme.load(
+                javaClass.getResourceAsStream(
+                    "/org/fife/ui/rsyntaxtextarea/themes/dark.xml"
+                )
+            )
+        }
+
     }
 
 }

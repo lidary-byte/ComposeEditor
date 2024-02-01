@@ -9,9 +9,14 @@ import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import com.formdev.flatlaf.FlatClientProperties
+import com.formdev.flatlaf.FlatLaf
+import com.formdev.flatlaf.FlatLightLaf
+import com.formdev.flatlaf.themes.FlatMacLightLaf
 import common.IntUiThemes
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.viewmodel.viewModel
@@ -28,11 +33,14 @@ import org.jetbrains.jewel.window.DecoratedWindow
 import org.jetbrains.jewel.window.styling.TitleBarStyle
 import page.home.HomePage
 import widget.TitleBarWidget
+import javax.swing.LookAndFeel
+import javax.swing.SwingUtilities.getRootPane
 import javax.swing.UIManager
 
 
 @OptIn(ExperimentalTextApi::class)
 fun main() = application {
+    // 设置ui风格
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
     PreComposeApp {
         val textStyle = TextStyle(fontFamily = FontFamily("Inter"))
@@ -40,15 +48,7 @@ fun main() = application {
             MainViewModel()
         }
         val theme by mainViewModel.theme.collectAsState()
-//        val codeViewer = remember {
-//            val editors = Editors()
-//
-//            CodeViewerEntity(
-//                editors = editors,
-//                fileTree = FileTree(File("C:\\Users\\lidar\\Desktop\\ComposeEditor").toProjectFile(), editors),
-//                settings = Settings()
-//            )
-//        }
+
         IntUiTheme(
             if (theme.isDark()) {
                 JewelTheme.darkThemeDefinition(defaultTextStyle = textStyle)
@@ -62,7 +62,7 @@ fun main() = application {
                     IntUiThemes.Dark -> TitleBarStyle.dark()
                 }
             ),
-            false
+            true
         ) {
             DecoratedWindow(
                 state = rememberWindowState(

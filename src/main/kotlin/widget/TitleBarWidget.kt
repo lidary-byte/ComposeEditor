@@ -26,25 +26,12 @@ import org.jetbrains.jewel.window.newFullscreenControls
 @Composable
 fun DecoratedWindowScope.TitleBarWidget(mainViewModel: MainViewModel) {
     val theme by mainViewModel.theme.collectAsState()
-    val isExpanded by mainViewModel.isExpanded.collectAsState()
     val chooseFile by mainViewModel.chooseFile.collectAsState()
     TitleBar(Modifier.newFullscreenControls(), gradientStartColor = Color(0xFFF5D4C1)) {
         Row(
             Modifier.align(Alignment.Start)
                 .padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically
         ) {
-            Tooltip({
-                Text(if (isExpanded) "折叠" else "展开")
-            }) {
-                IconButton({
-                    mainViewModel.changeExpanded(!isExpanded)
-                }) {
-                    Icon(
-                        if (isExpanded) painterResource("ic_menu_fold.svg") else painterResource("ic_menu_unfold.svg"),
-                        if (isExpanded) "折叠" else "展开"
-                    )
-                }
-            }
             if (chooseFile.file.isNotEmpty()) {
                 Dropdown(Modifier.height(30.dp), menuContent = {
                     chooseFile.file.forEachIndexed { index, file ->

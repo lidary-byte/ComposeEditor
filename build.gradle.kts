@@ -48,6 +48,9 @@ dependencies {
 //    implementation("io.noties.markwon:simple-ext:4.6.2")
     // 文件内容高亮 https://github.com/bobbylight/RSyntaxTextArea
     implementation("com.fifesoft:rsyntaxtextarea:3.3.4")
+    implementation("com.fifesoft:rstaui:3.3.1")
+    // Swing UI相关
+    implementation("com.formdev:flatlaf:3.3")
 }
 
 compose.desktop {
