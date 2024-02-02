@@ -1,8 +1,8 @@
-import androidx.compose.foundation.isSystemInDarkTheme
 import common.IntUiThemes
 import entity.FileEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import moe.tlaster.precompose.viewmodel.ViewModel
 import org.fife.ui.rsyntaxtextarea.Theme
 import java.io.File
@@ -55,13 +55,11 @@ class MainViewModel : ViewModel() {
     }
 
     fun selectFile(index: Int) {
-        this._chooseFile.tryEmit(this._chooseFile.value.apply {
-            currentIndex = index
-        })
+        this._chooseFile.update {
+            it.copy(currentIndex = index)
+        }
     }
 
-
-    var fontT: Theme? = null
     fun themeMode(theme: IntUiThemes) {
         this._theme.tryEmit(theme)
         _codeTheme.value = when (theme) {

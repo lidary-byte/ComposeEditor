@@ -52,8 +52,8 @@ fun HomePage(mainViewModel: MainViewModel) {
                 ) { tree ->
                     Text(tree.data.name, maxLines = 1, overflow = TextOverflow.Clip, modifier = it.fillMaxWidth())
                 }
-            }else{
-                Text("aklfsdjfalks ja付款啦世纪东方克拉斯打卡啦就是的反馈奥斯卡了阿克苏的减肥拉开记得发 ", maxLines = 1, overflow = TextOverflow.Clip, modifier = it.fillMaxWidth())
+            } else {
+                Text("", modifier = it)
             }
 
         }, second = {
@@ -64,7 +64,7 @@ fun HomePage(mainViewModel: MainViewModel) {
                     Column(Modifier.fillMaxSize()) {
                         EditorTabWidget(homeViewModel)
                         Spacer(Modifier.height(1.dp))
-                        EditorWidget(mainViewModel,homePageUiStatus.openFileList[homePageUiStatus.selectTab])
+                        EditorWidget(mainViewModel, homePageUiStatus.openFileList[homePageUiStatus.selectTab])
                     }
                 }
 

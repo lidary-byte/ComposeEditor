@@ -21,7 +21,7 @@ import javax.swing.BorderFactory
  * @Description:
  */
 @Composable
-fun EditorWidget(mainViewModel: MainViewModel,file: File) {
+fun EditorWidget(mainViewModel: MainViewModel, file: File) {
     val codeTheme by mainViewModel.codeTheme.collectAsState()
     SwingPanel(modifier = Modifier.fillMaxSize(), factory = {
         val textArea = TextEditorPane()
