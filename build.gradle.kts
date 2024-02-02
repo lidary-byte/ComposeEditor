@@ -1,12 +1,16 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+@file:Suppress("UnstableApiUsage")
 
+
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
-    kotlin("jvm")
+    kotlin("multiplatform")
     id("org.jetbrains.compose")
 }
 
+
 group = "com.lidary"
 version = "1.0-SNAPSHOT"
+
 
 repositories {
     mavenCentral()
@@ -16,50 +20,66 @@ repositories {
     google()
 }
 
-dependencies {
-    // Note, if you develop a library, you should use compose.desktop.common.
-    // compose.desktop.currentOs should be used in launcher-sourceSet
-    // (in a separate module for demo project and in testMain).
-    // With compose.desktop.common you will also lose @Preview functionality
-    implementation(compose.desktop.currentOs)
-//    {
-//        exclude("org.jetbrains.compose.material")
-//    }
-    implementation("moe.tlaster:precompose:1.5.10")
-    implementation("moe.tlaster:precompose-viewmodel:1.5.10")
-    implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.0")
-//    implementation("com.bybutter.compose:compose-jetbrains-expui-theme:2.0.0")
-    implementation("org.jetbrains.jewel:jewel-int-ui-standalone:0.13.2")
-    implementation("org.jetbrains.jewel:jewel-int-ui-decorated-window:0.13.2")
+java {
+    toolchain {
+        vendor = JvmVendorSpec.JETBRAINS
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+kotlin {
+    jvm {
+        jvmToolchain {
+            vendor = JvmVendorSpec.JETBRAINS
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
 
-//    implementation("com.halilibo.compose-richtext:richtext-ui:0.20.0")
-//    implementation("com.halilibo.compose-richtext:richtext-commonmark:0.20.0")
-    implementation("io.noties.markwon:core:4.6.2")
-//    implementation("io.noties.markwon:editor:4.6.2")
-//    implementation("io.noties.markwon:ext-latex:4.6.2")
-//    implementation("io.noties.markwon:ext-strikethrough:4.6.2")
-//    implementation("io.noties.markwon:ext-tables:4.6.2")
-//    implementation("io.noties.markwon:ext-tasklist:4.6.2")
-//    implementation("io.noties.markwon:html:4.6.2")
-//    implementation("io.noties.markwon:image:4.6.2")
-////    implementation("io.noties.markwon:image-coil:4.6.2")
-//    implementation("io.noties.markwon:inline-parser:4.6.2")
-//    implementation("io.noties.markwon:linkify:4.6.2")
-//    implementation("io.noties.markwon:simple-ext:4.6.2")
-    // 文件内容高亮 https://github.com/bobbylight/RSyntaxTextArea
-    implementation("com.fifesoft:rsyntaxtextarea:3.3.4")
-    implementation("com.fifesoft:rstaui:3.3.1")
-    // Swing UI相关
-    implementation("com.formdev:flatlaf:3.3")
+    sourceSets {
+        val jvmMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs) {
+                    exclude(group = "org.jetbrains.compose.material")
+                }
+                implementation("org.jetbrains.jewel:jewel-int-ui-standalone:0.13.2")
+                implementation("org.jetbrains.jewel:jewel-int-ui-decorated-window:0.13.2")
+                // 文件内容高亮 https://github.com/bobbylight/RSyntaxTextArea
+                implementation("com.fifesoft:rsyntaxtextarea:3.3.4")
+                implementation("com.fifesoft:rstaui:3.3.1")
+                // Swing UI相关
+//    implementation("com.formdev:flatlaf:3.3")
+//                implementation("org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:${extra["skiko.version"] as String}")
+//                implementation("org.jetbrains.compose.components:components-splitpane-desktop:${extra["compose.version"] as String}")
+//                implementation("com.fifesoft:rsyntaxtextarea:${extra["rsyntaxtextarea.version"] as String}")
+//                implementation("com.fifesoft:rstaui:${extra["rstaui.version"] as String}")
+//                implementation("net.java.dev.jna:jna:${extra["jna.version"] as String}")
+            }
+        }
+    }
 }
 
 compose.desktop {
     application {
         mainClass = "MainKt"
+        buildTypes.release.proguard {
+            configurationFiles.from(project.file("compose-desktop.pro"))
+        }
         nativeDistributions {
+            modules("jdk.unsupported")
+
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb, TargetFormat.Exe, TargetFormat.Pkg)
+
             packageName = "ComposeEditor"
             packageVersion = "1.0.0"
+            description = "基于Compose的Editor"
+//            vendor = "Romain Guy"
+//            licenseFile = rootProject.file("LICENSE")
+
+//            macOS {
+//                dockName = "Kotlin Explorer"
+//                bundleID = "dev.romainguy.kotlin.explorer"
+//            }
         }
     }
 }
+
+
