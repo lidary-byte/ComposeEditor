@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import moe.tlaster.precompose.viewmodel.ViewModel
 import org.fife.ui.rsyntaxtextarea.Theme
+import java.awt.Font
+import java.awt.GraphicsEnvironment
 import java.io.File
 
 /**
@@ -37,6 +39,30 @@ class MainViewModel : ViewModel() {
 
     val codeTheme
         get() = _codeTheme.asStateFlow()
+
+
+    /**
+     * 中文有问题
+     */
+//    var customFont: Font? = null
+//        private set
+//
+//    init {
+//        customFont = Font.createFont(
+//            Font.TRUETYPE_FONT,
+//            javaClass.getResourceAsStream(
+//                "/font/Inter/Inter-Bold.ttf"
+//            )
+//        )
+//
+//        val ge = GraphicsEnvironment.getLocalGraphicsEnvironment()
+//        ge.registerFont(customFont)
+//        customFont = customFont?.deriveFont(14f)
+//    }
+
+    private fun loadFont() {
+
+    }
 
     fun addFile(file: List<File>) {
 

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.autoSaver
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.SwingPanel
 import org.fife.ui.rsyntaxtextarea.FileLocation
@@ -32,6 +33,7 @@ fun EditorWidget(mainViewModel: MainViewModel, file: File) {
                 isCodeFoldingEnabled = true
                 markOccurrences = true
                 isMarginLineEnabled = true
+//                font = mainViewModel.customFont
                 codeTheme?.apply(this)
             }
         RTextScrollPane(textArea).apply {

@@ -5,18 +5,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import com.formdev.flatlaf.FlatClientProperties
-import com.formdev.flatlaf.FlatLaf
-import com.formdev.flatlaf.FlatLightLaf
-import com.formdev.flatlaf.themes.FlatMacLightLaf
 import common.IntUiThemes
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.viewmodel.viewModel
@@ -33,8 +29,6 @@ import org.jetbrains.jewel.window.DecoratedWindow
 import org.jetbrains.jewel.window.styling.TitleBarStyle
 import page.home.HomePage
 import widget.TitleBarWidget
-import javax.swing.LookAndFeel
-import javax.swing.SwingUtilities.getRootPane
 import javax.swing.UIManager
 
 
@@ -70,6 +64,7 @@ fun main() = application {
                     width = 1200.dp,
                     height = 600.dp
                 ),
+                icon = painterResource("ic_logo.svg"),
                 onCloseRequest = ::exitApplication,
                 title = "Compose Editor"
             ) {

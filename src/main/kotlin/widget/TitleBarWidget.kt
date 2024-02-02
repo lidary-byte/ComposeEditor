@@ -9,13 +9,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import common.EditorIcons
 import common.IntUiThemes
 import org.jetbrains.jewel.ui.component.*
 import org.jetbrains.jewel.window.DecoratedWindowScope
 import org.jetbrains.jewel.window.TitleBar
 import org.jetbrains.jewel.window.newFullscreenControls
+import java.awt.Desktop
+import java.net.URI
 
 /**
  * @Author : lcc
@@ -32,6 +34,8 @@ fun DecoratedWindowScope.TitleBarWidget(mainViewModel: MainViewModel) {
             Modifier.align(Alignment.Start)
                 .padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically
         ) {
+            Icon("ic_logo.svg", "logo", EditorIcons::class.java, modifier = Modifier.size(28.dp))
+
             if (chooseFile.file.isNotEmpty()) {
                 Dropdown(Modifier.height(30.dp), menuContent = {
                     chooseFile.file.forEachIndexed { index, file ->
@@ -77,6 +81,19 @@ fun DecoratedWindowScope.TitleBarWidget(mainViewModel: MainViewModel) {
 
         Row(Modifier.align(Alignment.End)) {
             Tooltip({
+                Text("https://github.com/lidary-byte/ComposeEditor")
+            }) {
+                IconButton({
+                    Desktop.getDesktop().browse(URI.create("https://github.com/lidary-byte/ComposeEditor"))
+                }, Modifier.size(40.dp).padding(5.dp)) {
+                    Icon(
+                        "ic_github.svg",
+                        "", EditorIcons::class.java
+                    )
+                }
+            }
+
+            Tooltip({
                 when (theme) {
                     IntUiThemes.Light -> Text("Switch to light theme with light header")
                     IntUiThemes.LightWithLightHeader -> Text("Switch to dark theme")
@@ -94,18 +111,18 @@ fun DecoratedWindowScope.TitleBarWidget(mainViewModel: MainViewModel) {
                 }, Modifier.size(40.dp).padding(5.dp)) {
                     when (theme) {
                         IntUiThemes.Light -> Icon(
-                            painter = painterResource("icons/lightTheme@20x20.svg"),
-                            "Themes"
+                            "ic_light.svg",
+                            "Themes", EditorIcons::class.java
                         )
 
                         IntUiThemes.LightWithLightHeader -> Icon(
-                            painter = painterResource("icons/lightWithLightHeaderTheme@20x20.svg"),
-                            "Themes"
+                            "ic_light_header.svg",
+                            "Themes", EditorIcons::class.java
                         )
 
                         IntUiThemes.Dark -> Icon(
-                            painter = painterResource("icons/darkTheme@20x20.svg"),
-                            "Themes"
+                            "ic_dark.svg",
+                            "Themes", EditorIcons::class.java
                         )
                     }
                 }
