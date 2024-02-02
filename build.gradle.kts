@@ -45,6 +45,8 @@ kotlin {
                 // 文件内容高亮 https://github.com/bobbylight/RSyntaxTextArea
                 implementation("com.fifesoft:rsyntaxtextarea:3.3.4")
                 implementation("com.fifesoft:rstaui:3.3.1")
+                implementation("moe.tlaster:precompose:1.5.10")
+                implementation("moe.tlaster:precompose-viewmodel:1.5.10")
                 // Swing UI相关
 //    implementation("com.formdev:flatlaf:3.3")
 //                implementation("org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:${extra["skiko.version"] as String}")
