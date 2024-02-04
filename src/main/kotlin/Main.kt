@@ -34,6 +34,7 @@ import javax.swing.UIManager
 
 @OptIn(ExperimentalTextApi::class)
 fun main() = application {
+    System.setProperty("file.encoding", "UTF-8")
     // 设置ui风格
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName())
     PreComposeApp {
